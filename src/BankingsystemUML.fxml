@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.paint.Color?>
+
+<TabPane fx:controller="BankingController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="400.0" prefWidth="685.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <!-- Login Tab First -->
+    <Tab fx:id="loginTab" text="Login">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="240.0" layoutY="55.0" prefHeight="18.0" prefWidth="241.0" text="BANKING SYSTEM" textAlignment="LEFT">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="421.0" layoutY="122.0" text="UserName">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="430.0" layoutY="204.0" text="Password">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="loginUsernameField" layoutX="345.0" layoutY="150.0" style="-fx-alignment: center-left;" />
+                  <TextField fx:id="loginPasswordField" layoutX="344.0" layoutY="229.0" style="-fx-alignment: center-left;" />
+                  <Button fx:id="loginButton" layoutX="295.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="26.0" prefWidth="139.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="LogIn" />
+               </children></AnchorPane>
+        </content>
+    </Tab>
+    
+    <!-- Transaction Tab Second -->
+    <Tab fx:id="transactionTab" text="Transaction">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="607.0">
+               <children>
+                  <VBox prefHeight="374.0" prefWidth="600.0">
+                     <children>
+                        <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="374.0" prefWidth="695.0">
+                           <children>
+                              <Label layoutX="-35.0" layoutY="112.0" text="Amount">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="cancelTransactionButton" layoutX="126.0" layoutY="237.0" mnemonicParsing="false" onAction="#handleCancelTransaction" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Cancel">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="amountField" layoutX="85.0" layoutY="104.0" prefHeight="26.0" prefWidth="134.0" style="-fx-alignment: center-left;" />
+                              <ComboBox fx:id="accountComboBox" layoutX="84.0" layoutY="39.0" prefHeight="26.0" prefWidth="130.0" />
+                              <Label layoutX="-35.0" layoutY="173.0" prefHeight="18.0" prefWidth="104.0" text="Transaction Type">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="transactionTypeComboBox" layoutX="88.0" layoutY="167.0" prefHeight="26.0" prefWidth="130.0" />
+                              <Button fx:id="continueTransactionButton" layoutX="-27.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleContinueTransaction" prefHeight="26.0" prefWidth="99.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Continue">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Label alignment="CENTER" layoutX="337.0" layoutY="32.0" prefHeight="19.0" prefWidth="115.0" text="Balance">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="balanceField" layoutX="358.0" layoutY="77.0" prefHeight="26.0" prefWidth="134.0" style="-fx-alignment: center-left;" />
+                           </children></AnchorPane>
+                     </children>
+                  </VBox>
+                  <Label layoutX="538.0" layoutY="47.0" text="Account Number">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    
+    <!-- Account Tab Third -->
+    <Tab fx:id="accountTab" text="Account">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="createAccountButton" layoutX="18.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Create Account" />
+                  <Label layoutX="11.0" layoutY="70.0" prefHeight="26.0" prefWidth="104.0" text="Account Number" />
+                  <Label layoutX="12.0" layoutY="106.0" prefHeight="27.0" prefWidth="88.0" text="Customer ID" />
+                  <Label layoutX="10.0" layoutY="142.0" prefHeight="27.0" prefWidth="90.0" text="Account Type" />
+                  <Label layoutX="10.0" layoutY="180.0" prefHeight="27.0" prefWidth="94.0" text="Initial Balance" />
+                  <TextField fx:id="accountNumberField" layoutX="142.0" layoutY="69.0" style="-fx-alignment: center-left;" />
+                  <TextField fx:id="customerIdField" layoutX="142.0" layoutY="106.0" style="-fx-alignment: center-left;" />
+                  <TextField fx:id="accountTypeField" layoutX="142.0" layoutY="143.0" prefHeight="26.0" prefWidth="148.0" style="-fx-alignment: center-left;" />
+                  <TextField fx:id="initialBalanceField" layoutX="142.0" layoutY="179.0" style="-fx-alignment: center-left;" />
+                  <TableView fx:id="accountsTableView" layoutX="303.0" layoutY="14.0" prefHeight="290.0" prefWidth="382.0">
+                     <columns>
+                        <TableColumn prefWidth="101.60003662109375" text="Account Number" />
+                        <TableColumn prefWidth="89.60003662109375" text="Account Type" />
+                        <TableColumn prefWidth="93.60009765625" text="Initial Balance" />
+                        <TableColumn prefWidth="98.39996337890625" text="Customer ID" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="deleteAccountButton" layoutX="160.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleDeleteAccount" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #f44336; -fx-text-fill: white;" text="Delete" />
+               </children>
+            </AnchorPane>
+         </content>
+    </Tab>
+    
+    <!-- Customer Tab Fourth -->
+    <Tab fx:id="customerTab" text="Customer">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane layoutX="2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="366.0" prefWidth="685.0">
+                     <children>
+                        <Label layoutX="613.0" layoutY="14.0" text="Customer ID" />
+                        <Label layoutX="622.0" layoutY="49.0" text="First Name" />
+                        <Label layoutX="623.0" layoutY="86.0" text="Last Name" />
+                        <Label layoutX="644.0" layoutY="202.0" text="Phone" />
+                        <Label layoutX="649.0" layoutY="241.0" text="Email" />
+                        <Label layoutX="651.0" layoutY="287.0" text="Type" />
+                        <TextField fx:id="txtCustomerId" layoutX="483.0" layoutY="10.0" prefHeight="26.0" prefWidth="121.0" style="-fx-alignment: center-left;" />
+                        <TextField fx:id="txtFirstName" layoutX="483.0" layoutY="45.0" prefHeight="26.0" prefWidth="122.0" style="-fx-alignment: center-left;" />
+                        <TextField fx:id="txtLastName" layoutX="483.0" layoutY="82.0" prefHeight="26.0" prefWidth="122.0" style="-fx-alignment: center-left;" />
+                        <TextField fx:id="txtPhone" layoutX="483.0" layoutY="196.0" prefHeight="26.0" prefWidth="122.0" style="-fx-alignment: center-left;" />
+                        <TextField fx:id="txtEmail" layoutX="481.0" layoutY="237.0" prefHeight="26.0" prefWidth="125.0" style="-fx-alignment: center-left;" />
+                        <ComboBox fx:id="cmbCustomerType" layoutX="482.0" layoutY="283.0" prefHeight="26.0" prefWidth="124.0" />
+                        <Button fx:id="registerCustomerButton" layoutX="537.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleRegisterCustomer" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Register Customer" />
+                        <TableView fx:id="customersTableView" layoutX="10.0" layoutY="8.0" prefHeight="290.0" prefWidth="460.0">
+                           <columns>
+                              <TableColumn prefWidth="42.40002250671387" text="Type" />
+                              <TableColumn prefWidth="46.4000244140625" text="Email" />
+                              <TableColumn prefWidth="45.60004425048828" text="Phone" />
+                              <TableColumn prefWidth="59.199981689453125" text="Password" />
+                              <TableColumn prefWidth="66.39996337890625" text="UserName" />
+                              <TableColumn prefWidth="59.199951171875" text="Last Name" />
+                              <TableColumn prefWidth="66.4000244140625" text="FirstName" />
+                              <TableColumn prefWidth="71.20001220703125" text="Customer ID" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                  <Label layoutX="10.0" layoutY="126.0" text="UserName" />
+                  <TextField fx:id="txtUserName" layoutX="82.0" layoutY="122.0" prefHeight="26.0" prefWidth="123.0" style="-fx-alignment: center-left;" />
+                  <Label layoutX="11.0" layoutY="164.0" text="Password" />
+                  <TextField fx:id="txtPassword" layoutX="83.0" layoutY="160.0" prefHeight="26.0" prefWidth="123.0" style="-fx-alignment: center-left;" />
+               </children>
+            </AnchorPane>
+        </content>
+    </Tab>
+    
+    <!-- Transaction History Tab Last -->
+    <Tab fx:id="transactionHistoryTab" text="Transaction History">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="transactionHistoryTable" layoutX="-1.0" prefHeight="273.0" prefWidth="686.0">
+                    <columns>
+                      <TableColumn prefWidth="150.39996337890625" text="Date" />
+                      <TableColumn minWidth="6.103515625E-5" prefWidth="130.39996337890625" text="Amount" />
+                        <TableColumn prefWidth="147.20001220703125" text="Transaction Type" />
+                        <TableColumn prefWidth="135.199951171875" text="Transaction ID" />
+                        <TableColumn prefWidth="123.2000732421875" text="Account Number" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="closeHistoryButton" layoutX="285.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleCloseHistory" prefHeight="26.0" prefWidth="134.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Close">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

@@ -1,14 +1,13 @@
-
 // BankingController.java
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import java.util.List;
 
 public class BankingController {
     
-    // === FXML INJECTIONS ===
     // TabPane and Tabs
     @FXML private TabPane mainTabPane;
     @FXML private Tab loginTab;
@@ -106,6 +105,7 @@ public class BankingController {
                 clearTransactionFields();
                 showSuccessAlert("Transaction completed successfully");
                 refreshAccountsTable();
+                refreshTransactionHistory(); // Refresh transaction history after successful transaction
             } else {
                 showAlert("Error", "Transaction failed - insufficient funds or invalid amount");
             }
@@ -182,6 +182,7 @@ public class BankingController {
             if (success) {
                 refreshAccountsTable();
                 refreshAccountComboBox();
+                refreshTransactionHistory(); // Refresh transaction history after account deletion
                 showSuccessAlert("Account deleted successfully");
             } else {
                 showAlert("Error", "Failed to delete account");
@@ -269,6 +270,26 @@ public class BankingController {
         // For example, filter accounts for this customer
         refreshAccountsTable();
         refreshAccountComboBox();
+        refreshTransactionHistory(); // Refresh transaction history when user logs in
+    }
+
+    // === TRANSACTION HISTORY METHODS ===
+    private void refreshTransactionHistory() {
+        if (transactionHistoryData != null) {
+            transactionHistoryData.clear();
+            for (Account account : bankingService.getAllAccounts()) {
+                List<Transaction> transactions = bankingService.getTransactionHistory(account.getAccountNumber());
+                for (Transaction transaction : transactions) {
+                    String transactionInfo = String.format("Acc: %s | Type: %s | Amount: $%.2f | Date: %s | ID: %s",
+                        transaction.getAccountNumber(),
+                        transaction.getTransactionType(),
+                        transaction.getAmount(),
+                        transaction.getDate(),
+                        transaction.getTransactionId());
+                    transactionHistoryData.add(transactionInfo);
+                }
+            }
+        }
     }
 
     // === UTILITY METHODS ===
@@ -434,10 +455,11 @@ public class BankingController {
         if (transactionTypeComboBox != null) transactionTypeComboBox.getItems().addAll("Deposit", "Withdrawal");
         if (cmbCustomerType != null) cmbCustomerType.getItems().addAll("Personal", "Business");
         
-        // Refresh data from service (will be empty initially)
+        // Refresh all data
         refreshAccountsTable();
         refreshCustomersTable();
         refreshAccountComboBox();
+        refreshTransactionHistory(); // Add this line
         
         // Set initial balance display (will be empty if no accounts exist)
         if (balanceField != null && accountComboBox != null && !accountComboBox.getItems().isEmpty()) {
@@ -451,6 +473,9 @@ public class BankingController {
                 if (newTab == loginTab && currentCustomer != null) {
                     // If user is logged in and goes to login tab, show welcome message
                     System.out.println("Welcome back " + currentCustomer.getFullName());
+                } else if (newTab == transactionHistoryTab) {
+                    // Refresh transaction history when user navigates to the history tab
+                    refreshTransactionHistory();
                 }
             });
         }

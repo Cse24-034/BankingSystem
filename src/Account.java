@@ -6,11 +6,11 @@ public class Account {
     private double balance;
     private Customer customer;
     
-    public Account(String accountNumber, String customerId, String accountType, double initialBalance) {
+    public Account(String accountNumber, String customerId, String accountType, double balance) {
         this.accountNumber = accountNumber;
         this.customerId = customerId;
         this.accountType = accountType;
-        this.balance = initialBalance;
+        this.balance = balance;
     }
     
     // Getters and setters
@@ -21,14 +21,16 @@ public class Account {
     public Customer getCustomer() { return customer; }
     public void setCustomer(Customer customer) { this.customer = customer; }
     
-    public void deposit(double amount) {
+    public boolean deposit(double amount) {
         if (amount > 0) {
             balance += amount;
+            return true;
         }
+        return false;
     }
     
     public boolean withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
+        if (amount > 0 && balance >= amount) {
             balance -= amount;
             return true;
         }

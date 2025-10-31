@@ -1,5 +1,6 @@
-import java.util.List;
+// Customer.java
 import java.util.ArrayList;
+import java.util.List;
 
 public class Customer {
     private String customerId;
@@ -25,7 +26,7 @@ public class Customer {
         this.accounts = new ArrayList<>();
     }
     
-    // Getters and setters
+    // Getters
     public String getCustomerId() { return customerId; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }

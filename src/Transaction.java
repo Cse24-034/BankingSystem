@@ -6,7 +6,8 @@ public class Transaction {
     private double amount;
     private String date;
     
-    public Transaction(String transactionId, String accountNumber, String transactionType, double amount, String date) {
+    public Transaction(String transactionId, String accountNumber, String transactionType, 
+                      double amount, String date) {
         this.transactionId = transactionId;
         this.accountNumber = accountNumber;
         this.transactionType = transactionType;
@@ -14,7 +15,7 @@ public class Transaction {
         this.date = date;
     }
     
-    // Getters...
+    // Getters
     public String getTransactionId() { return transactionId; }
     public String getAccountNumber() { return accountNumber; }
     public String getTransactionType() { return transactionType; }

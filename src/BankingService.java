@@ -4,17 +4,55 @@ import java.util.*;
 public class BankingService {
     private Map<String, Customer> customers = new HashMap<>();
     private Map<String, Account> accounts = new HashMap<>();
-    private Map<String, Customer> customersByUsername = new HashMap<>(); // For login
+    private Map<String, Customer> customersByUsername = new HashMap<>();
     private List<Transaction> transactions = new ArrayList<>();
+    private StorageService storageService; // Changed from FileStorageService to StorageService
+    
+    public BankingService() {
+        this.storageService = new StorageService(); 
+        loadAllData();
+    }
+    
+    // Load all data from files
+    private void loadAllData() {
+        // Load customers first
+        List<Customer> loadedCustomers = storageService.loadCustomers();
+        for (Customer customer : loadedCustomers) {
+            customers.put(customer.getCustomerId(), customer);
+            customersByUsername.put(customer.getUsername(), customer);
+        }
+        
+        // Load accounts (requires customers to be loaded first)
+        List<Account> loadedAccounts = storageService.loadAccounts(loadedCustomers);
+        for (Account account : loadedAccounts) {
+            accounts.put(account.getAccountNumber(), account);
+        }
+        
+        // Load transactions
+        List<Transaction> loadedTransactions = storageService.loadTransactions();
+        transactions.addAll(loadedTransactions);
+        
+        System.out.println("Loaded " + customers.size() + " customers, " + 
+                          accounts.size() + " accounts, " + 
+                          transactions.size() + " transactions");
+    }
+    
+    // Save all data to files
+    private void saveAllData() {
+        storageService.saveCustomers(new ArrayList<>(customers.values()));
+        storageService.saveAccounts(new ArrayList<>(accounts.values()));
+        storageService.saveTransactions(transactions);
+    }
     
     // Customer management
     public boolean registerCustomer(Customer customer) {
         if (customers.containsKey(customer.getCustomerId()) || 
             customersByUsername.containsKey(customer.getUsername())) {
-            return false; // Customer ID or username already exists
+            return false;
         }
         customers.put(customer.getCustomerId(), customer);
         customersByUsername.put(customer.getUsername(), customer);
+        saveAllData();
         return true;
     }
     
@@ -33,10 +71,9 @@ public class BankingService {
     // Account management
     public boolean createAccount(Account account) {
         if (accounts.containsKey(account.getAccountNumber())) {
-            return false; // Account number already exists
+            return false;
         }
         
-        // Link account to customer
         Customer customer = customers.get(account.getCustomerId());
         if (customer != null) {
             account.setCustomer(customer);
@@ -44,6 +81,7 @@ public class BankingService {
         }
         
         accounts.put(account.getAccountNumber(), account);
+        saveAllData();
         return true;
     }
     
@@ -68,12 +106,15 @@ public class BankingService {
     public boolean deleteAccount(String accountNumber) {
         Account account = accounts.get(accountNumber);
         if (account != null) {
-            // Remove from customer's account list
             Customer customer = account.getCustomer();
             if (customer != null) {
                 customer.getAccounts().remove(account);
             }
-            return accounts.remove(accountNumber) != null;
+            boolean removed = accounts.remove(accountNumber) != null;
+            if (removed) {
+                saveAllData();
+            }
+            return removed;
         }
         return false;
     }
@@ -87,16 +128,16 @@ public class BankingService {
             account.deposit(amount);
         } else if ("Withdrawal".equals(transactionType)) {
             if (!account.withdraw(amount)) {
-                return false; // Insufficient funds
+                return false;
             }
         } else {
-            return false; // Invalid transaction type
+            return false;
         }
         
-        // Record transaction
         String transactionId = "TXN" + System.currentTimeMillis();
         Transaction transaction = new Transaction(transactionId, accountNumber, transactionType, amount, new Date().toString());
         transactions.add(transaction);
+        saveAllData();
         
         return true;
     }
@@ -111,7 +152,7 @@ public class BankingService {
         return accountTransactions;
     }
     
-    // Authentication - Now uses registered customers
+    // Authentication
     public boolean authenticateUser(String username, String password) {
         Customer customer = customersByUsername.get(username);
         return customer != null && customer.validateCredentials(username, password);

@@ -39,7 +39,14 @@ public class Customer {
     public List<Account> getAccounts() { return accounts; }
     
     public void addAccount(Account account) {
-        accounts.add(account);
+        // Check if account already exists for this customer
+        boolean accountExists = accounts.stream()
+            .anyMatch(acc -> acc.getAccountNumber().equals(account.getAccountNumber()));
+        
+        if (!accountExists) {
+            accounts.add(account);
+            account.setCustomer(this);
+        }
     }
     
     public boolean validateCredentials(String username, String password) {

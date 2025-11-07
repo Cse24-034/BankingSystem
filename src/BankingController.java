@@ -54,6 +54,9 @@ public class BankingController {
     @FXML private TextField loginPasswordField;
     @FXML private Button loginButton;
     
+    // Integration Test Button (Add this)
+    @FXML private Button integrationTestButton;
+    
     private BankingService bankingService;
     private ObservableList<String> accountsData;
     private ObservableList<String> customersData;
@@ -74,7 +77,18 @@ public class BankingController {
         }
     }
     
-    // Removed initializeSampleData() method entirely
+    // === INTEGRATION TEST METHOD ===
+    public void runIntegrationTest() {
+        System.out.println("Running integration test from GUI...");
+        IntegrationTest.main(new String[]{});
+    }
+    
+    // === INTEGRATION TEST BUTTON HANDLER ===
+    @FXML
+    void handleIntegrationTest(ActionEvent event) {
+        runIntegrationTest();
+        showSuccessAlert("Integration test completed! Check console for results.");
+    }
 
     // === TRANSACTION HISTORY METHODS ===
     @FXML
@@ -144,6 +158,12 @@ public class BankingController {
         Customer customer = bankingService.getCustomer(customerId);
         if (customer == null) {
             showAlert("Error", "Customer ID not found. Please register customer first.");
+            return;
+        }
+        
+        // Check if customer already has this account
+        if (bankingService.accountExistsForCustomer(customerId, accountNumber)) {
+            showAlert("Error", "This customer already has an account with number: " + accountNumber);
             return;
         }
         
@@ -243,9 +263,9 @@ public class BankingController {
             // Update UI based on logged-in customer
             updateUIForLoggedInCustomer();
             
-            // Navigate to Transaction tab after successful login
-            if (mainTabPane != null && transactionTab != null) {
-                mainTabPane.getSelectionModel().select(transactionTab);
+            // Navigate to Account tab after successful login (CHANGED FROM TRANSACTION TAB)
+            if (mainTabPane != null && accountTab != null) {
+                mainTabPane.getSelectionModel().select(accountTab);
             }
         } else {
             showAlert("Error", "Invalid username or password");

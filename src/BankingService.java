@@ -6,7 +6,7 @@ public class BankingService {
     private Map<String, Account> accounts = new HashMap<>();
     private Map<String, Customer> customersByUsername = new HashMap<>();
     private List<Transaction> transactions = new ArrayList<>();
-    private StorageService storageService; // Changed from FileStorageService to StorageService
+    private StorageService storageService;
     
     public BankingService() {
         this.storageService = new StorageService(); 
@@ -69,8 +69,24 @@ public class BankingService {
     }
     
     // Account management
+    public boolean accountExistsForCustomer(String customerId, String accountNumber) {
+        for (Account account : accounts.values()) {
+            if (account.getCustomerId().equals(customerId) && 
+                account.getAccountNumber().equals(accountNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public boolean createAccount(Account account) {
+        // Check if account number already exists globally
         if (accounts.containsKey(account.getAccountNumber())) {
+            return false;
+        }
+        
+        // Check if this customer already has this account number
+        if (accountExistsForCustomer(account.getCustomerId(), account.getAccountNumber())) {
             return false;
         }
         
@@ -150,6 +166,10 @@ public class BankingService {
             }
         }
         return accountTransactions;
+    }
+    
+    public List<Transaction> getAllTransactions() {
+        return new ArrayList<>(transactions);
     }
     
     // Authentication

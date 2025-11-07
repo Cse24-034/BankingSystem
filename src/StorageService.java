@@ -23,6 +23,7 @@ public class StorageService {
         File file = new File(CUSTOMERS_FILE);
         
         if (!file.exists()) {
+            System.out.println("No customers file found. Starting with empty customer list.");
             return customers;
         }
         
@@ -56,6 +57,7 @@ public class StorageService {
         File file = new File(ACCOUNTS_FILE);
         
         if (!file.exists()) {
+            System.out.println("No accounts file found. Starting with empty account list.");
             return accounts;
         }
         
@@ -94,6 +96,7 @@ public class StorageService {
         File file = new File(TRANSACTIONS_FILE);
         
         if (!file.exists()) {
+            System.out.println("No transactions file found. Starting with empty transaction list.");
             return transactions;
         }
         

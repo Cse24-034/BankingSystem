@@ -1,1 +1,4 @@
+DUPE001|First|User|user1|pass1|||Personal
+PERSIST001|Persistence|Test|persist_user|pass123|||Business
 Cust-001|Angel|Sebudula|Angel Sebudula|12345|71234567|Angel@gmaill.com|Personal
+TEST001|Integration|Test|integration_test|password123|555-0001|test@integration.com|Personal

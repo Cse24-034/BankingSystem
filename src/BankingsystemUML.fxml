@@ -62,16 +62,16 @@
                         <TextField fx:id="txtEmail" layoutX="481.0" layoutY="237.0" prefHeight="26.0" prefWidth="125.0" style="-fx-alignment: center-left;" />
                         <ComboBox fx:id="cmbCustomerType" layoutX="482.0" layoutY="283.0" prefHeight="26.0" prefWidth="124.0" />
                         <Button fx:id="registerCustomerButton" layoutX="537.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleRegisterCustomer" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Register Customer" />
+                        
+                        <!-- Updated Customer Table with better column structure -->
                         <TableView fx:id="customersTableView" layoutX="10.0" layoutY="8.0" prefHeight="290.0" prefWidth="460.0">
                            <columns>
-                              <TableColumn prefWidth="42.40002250671387" text="Type" />
-                              <TableColumn prefWidth="46.4000244140625" text="Email" />
-                              <TableColumn prefWidth="45.60004425048828" text="Phone" />
-                              <TableColumn prefWidth="59.199981689453125" text="Password" />
-                              <TableColumn prefWidth="66.39996337890625" text="UserName" />
-                              <TableColumn prefWidth="59.199951171875" text="Last Name" />
-                              <TableColumn prefWidth="66.4000244140625" text="FirstName" />
-                              <TableColumn prefWidth="71.20001220703125" text="Customer ID" />
+                              <TableColumn prefWidth="80" text="Customer ID" />
+                              <TableColumn prefWidth="100" text="Full Name" />
+                              <TableColumn prefWidth="80" text="Username" />
+                              <TableColumn prefWidth="70" text="Type" />
+                              <TableColumn prefWidth="60" text="Accounts" />
+                              <TableColumn prefWidth="70" text="Phone" />
                            </columns>
                         </TableView>
                      </children>
@@ -99,12 +99,15 @@
                   <TextField fx:id="customerIdField" layoutX="142.0" layoutY="106.0" style="-fx-alignment: center-left;" />
                   <TextField fx:id="accountTypeField" layoutX="142.0" layoutY="143.0" prefHeight="26.0" prefWidth="148.0" style="-fx-alignment: center-left;" />
                   <TextField fx:id="initialBalanceField" layoutX="142.0" layoutY="179.0" style="-fx-alignment: center-left;" />
+                  
+                  <!-- Updated Account Table with better column structure -->
                   <TableView fx:id="accountsTableView" layoutX="303.0" layoutY="14.0" prefHeight="290.0" prefWidth="382.0">
                      <columns>
-                        <TableColumn prefWidth="101.60003662109375" text="Account Number" />
-                        <TableColumn prefWidth="89.60003662109375" text="Account Type" />
-                        <TableColumn prefWidth="93.60009765625" text="Initial Balance" />
-                        <TableColumn prefWidth="98.39996337890625" text="Customer ID" />
+                        <TableColumn prefWidth="80" text="Account No" />
+                        <TableColumn prefWidth="100" text="Customer Name" />
+                        <TableColumn prefWidth="70" text="Customer ID" />
+                        <TableColumn prefWidth="70" text="Type" />
+                        <TableColumn prefWidth="80" text="Balance" />
                      </columns>
                   </TableView>
                   <Button fx:id="deleteAccountButton" layoutX="160.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleDeleteAccount" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #f44336; -fx-text-fill: white;" text="Delete" />
